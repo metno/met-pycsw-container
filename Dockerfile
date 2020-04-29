@@ -69,12 +69,13 @@ RUN apk add --no-cache --virtual .build-deps \
     python3-dev \
   && pip3 install --upgrade pip setuptools \
   && pip3 install wheel \
-  && pip3 install parmap \
-  && pip3 install lxml \
-  && pip3 install xmltodict \
-  && pip3 install gunicorn \
-  && pip3 install sqlalchemy \
-  && pip3 install psycopg2 \
+  && pip3 install \
+    gunicorn \
+    lxml \
+    parmap \
+    psycopg2 \
+    sqlalchemy \
+    xmltodict \
   && pip3 install pycsw==${PYCSW_VERSION} \
   && apk del .build-deps
 

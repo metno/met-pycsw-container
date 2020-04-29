@@ -1,4 +1,4 @@
-# pycsw-container
+# pycsw
 
 This is MET norways base container for pycsw, an OGC CSW server implementation written in Python. For more information about pycsw got to [pycsw.org](https://pycsw.org). For the source code of pycsw got to [gepython/pycsw](https://github.com/geopython/pycsw) on GitHub.
 
