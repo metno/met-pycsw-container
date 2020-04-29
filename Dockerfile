@@ -48,29 +48,35 @@ ENV PYCSW_VERSION=2.4.2
 EXPOSE 8000
 
 RUN apk add --no-cache \
+    bash \
     ca-certificates \
-    python3 \
+    geos \
+    git \
     libpq \
     libxml2 \
-    wget \
-    sqlite \
-    geos \
     proj \
     proj-util \
-    git \
-    bash
+    python3 \
+    sqlite \
+    wget
 
-RUN apk add --no-cache --virtual .build-deps build-base python3-dev libxml2-dev libxslt-dev postgresql-dev geos-dev proj-dev \
-    && pip3 install --upgrade pip setuptools \
-    && pip3 install wheel \
-    && pip3 install parmap \
-    && pip3 install lxml \
-    && pip3 install xmltodict \
-    && pip3 install gunicorn \
-    && pip3 install sqlalchemy \
-    && pip3 install psycopg2 \
-    && pip3 install pycsw==${PYCSW_VERSION} \
-    && apk del .build-deps
+RUN apk add --no-cache --virtual .build-deps \
+    build-base \
+    geos-dev proj-dev \
+    libxml2-dev \
+    libxslt-dev \
+    postgresql-dev \
+    python3-dev \
+  && pip3 install --upgrade pip setuptools \
+  && pip3 install wheel \
+  && pip3 install parmap \
+  && pip3 install lxml \
+  && pip3 install xmltodict \
+  && pip3 install gunicorn \
+  && pip3 install sqlalchemy \
+  && pip3 install psycopg2 \
+  && pip3 install pycsw==${PYCSW_VERSION} \
+  && apk del .build-deps
 
 # We are installing pycsw from pip
 # I leave the lines below commented
