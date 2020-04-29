@@ -53,7 +53,6 @@ RUN apk add --no-cache \
     geos \
     git \
     libpq \
-    libpq \
     libxml2 \
     libxslt \
     proj \
