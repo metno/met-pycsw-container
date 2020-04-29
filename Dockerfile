@@ -27,55 +27,59 @@
 # =================================================================
 #
 # Adapted from pycsw official Dockerfile
-# Contributors: Massimo Di Stefano
-# 
 #
-FROM alpine:latest
+# Contributors:
+#   Massimo Di Stefano
+#   Arnulf Heimsbakk
+#
+# Note in the instruction above I added some extra packages:
+# git - to clone pycsw repo or install with pip directly form github
+# bash - for interactive docker session
+# postgresql-dev, psycopg2 - for postgres backend
+# parmap - to easy parallelize routines like mmd2iso
+# xmltodict - pythonic way to work on xml
 
+FROM alpine:3.11
+LABEL maintainer="massimods@met.no,aheimsbakk@met.no"
 
-RUN echo 'http://dl-cdn.alpinelinux.org/alpine/v3.11/main' >> /etc/apk/repositories \
-  && apk add --no-cache \
+ENV PYCSW_CONFIG=/etc/pycsw/pycsw.cfg
+ENV PYCSW_VERSION=2.4.2
+
+EXPOSE 8000
+
+RUN apk add --no-cache \
+    bash \
     ca-certificates \
-    python3 \
+    geos \
+    git \
     libpq \
     libxml2 \
-    libxml2-dev \
-    libxslt-dev \
-    wget \
-    postgresql-dev \
-    sqlite \
-  && apk add --no-cache \
-    --repository http://dl-3.alpinelinux.org/alpine/edge/testing/ \
-    --allow-untrusted \
-    geos \
+    libxslt \
     proj \
     proj-util \
-    geos-dev \
-    proj-dev \
-    git
-
-#  Separate instruction so that can be asly removed after the build
+    python3 \
+    sqlite \
+    wget
 
 RUN apk add --no-cache --virtual .build-deps \
     build-base \
-    python3-dev
-
-# optional for an easy/friendly interactive docker session
-RUN apk add --update bash
-
-RUN adduser -D -u 1000 pycsw
-
-WORKDIR /tmp/pycsw
-
-RUN pip3 install --upgrade pip setuptools \
-    && pip3 install wheel \
-    && pip3 install parmap \
-    && pip3 install lxml \
-    && pip3 install xmltodict \
-    && pip3 install gunicorn \
-    && pip3 install sqlalchemy \
-    && pip3 install psycopg2 \
-    && pip3 install pycsw
+    geos-dev \
+    libxml2-dev \
+    libxslt-dev \
+    postgresql-dev \
+    proj-dev \
+    python3-dev \
+  && pip3 install --upgrade pip setuptools \
+  && pip3 install wheel \
+  && pip3 install \
+    gunicorn \
+    lxml \
+    parmap \
+    psycopg2 \
+    sqlalchemy \
+    xmltodict \
+  && pip3 install pycsw==${PYCSW_VERSION} \
+  && apk del .build-deps
 
 # We are installing pycsw from pip
 # I leave the lines below commented
@@ -92,33 +96,16 @@ RUN pip3 install --upgrade pip setuptools \
 #     && cp docker/entrypoint.py /usr/local/bin/entrypoint.py \
 #     && chmod a+x /usr/local/bin/entrypoint.py
 
+ADD pycsw.cfg ${PYCSW_CONFIG}
+ADD entrypoint.py /usr/local/bin/entrypoint.py
 
-# Note in the instruction above I added some extra packages:
-# git - to clone pycsw repo or install with pip directly form github
-# bash - for interactive docker session
-# postgresql-dev, psycopg2 - for postgres backend
-# parmap - to easy parallelize routines like mmd2iso
-# xmltodict - pythonic way to work on xml 
-
-ENV PYCSW_CONFIG=/etc/pycsw/pycsw.cfg
-
-ADD volumes/conf/pycsw.cfg ${PYCSW_CONFIG}
-ADD volumes/commands/entrypoint.py /usr/local/bin/entrypoint.py
-
-RUN mkdir -p /etc/pycsw \
+RUN adduser -D -u 1000 pycsw \
+  && mkdir -p /etc/pycsw \
   && mkdir /var/lib/pycsw \
   && chown pycsw:pycsw /var/lib/pycsw
-
-RUN apk add sqlite --no-cache
-RUN apk del .build-deps
 
 WORKDIR /home/pycsw
 
 USER pycsw
 
-EXPOSE 8000
-
-ENTRYPOINT [\
-  "python3", \
-  "/usr/local/bin/entrypoint.py" \
-]
+ENTRYPOINT [ "python3", "/usr/local/bin/entrypoint.py" ]
