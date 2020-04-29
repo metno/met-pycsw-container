@@ -5,7 +5,7 @@ This is MET norways base container for pycsw, an OGC CSW server implementation w
 **Highlights**
 
 * Supports both sqlite and postgresql database.
-* Using the gunicorn server
+* Using the gunicorn server.
 
 ## Tags
 
