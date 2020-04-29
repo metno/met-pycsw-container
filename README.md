@@ -11,11 +11,19 @@ This is MET norways base container for pycsw, an OGC CSW server implementation w
 
 * `2.4.2-alpine`, `alpine`, `latest`
 
+## Exposes
+
+* Port `8000` exposes the pycsw service.
+
 ## Environment
 
 * `PYCSW_CONFIG` --- path to `pycsw.cfg` config file, default `/etc/pycsw/pycsw.cfg`
 
 ## Usage
+
+To run the container as is
+
+    docker run -d -p 8000:8000 -v my_pycsw.cfg:/etc/pycsw/pycsw.cfg:ro metno/pycsw
 
 <!---
 # vim: set spell spelllang=en:
