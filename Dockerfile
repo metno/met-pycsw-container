@@ -53,7 +53,9 @@ RUN apk add --no-cache \
     geos \
     git \
     libpq \
+    libpq \
     libxml2 \
+    libxslt \
     proj \
     proj-util \
     python3 \
@@ -62,10 +64,11 @@ RUN apk add --no-cache \
 
 RUN apk add --no-cache --virtual .build-deps \
     build-base \
-    geos-dev proj-dev \
+    geos-dev \
     libxml2-dev \
     libxslt-dev \
     postgresql-dev \
+    proj-dev \
     python3-dev \
   && pip3 install --upgrade pip setuptools \
   && pip3 install wheel \
