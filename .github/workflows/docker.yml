@@ -2,12 +2,11 @@ name: docker
 
 on:
   push:
-    # publish image as :bleeding
+    # publish image as :bleeding or new tag
     branches:
       - master
-
-  # publish image on new tag
-  push.tags:
+    tags:
+      - '*'
 
   # always check on merge
   pull_request:
