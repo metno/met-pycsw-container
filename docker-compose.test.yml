@@ -5,5 +5,6 @@ services:
   sut:
     build:
       context: .
-    command: echo Run integration tests run_tests.sh
+    # Add your tests here, to be run each pull request
+    #command: run_tests.sh
 
