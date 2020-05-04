@@ -1,0 +1,13 @@
+---
+version: '3.4'
+
+services:
+  image:
+    image: docker.io/metno/pycsw:${VERSION:-dev}
+    build:
+      context: .
+    ports:
+      - '8000:8000'
+    volumes:
+      - ./pycsw.cfg:/etc/pycsw/pycsw.cfg
+

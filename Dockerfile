@@ -108,4 +108,4 @@ WORKDIR /home/pycsw
 
 USER pycsw
 
-ENTRYPOINT [ "python3", "/usr/local/bin/entrypoint.py" ]
+CMD [ "python3", "/usr/local/bin/entrypoint.py" ]

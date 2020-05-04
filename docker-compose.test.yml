@@ -1,0 +1,10 @@
+---
+version: '3.4'
+
+services:
+  sut:
+    build:
+      context: .
+    # Add your tests here, to be run each pull request
+    command: echo run_tests.sh
+
