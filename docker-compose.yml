@@ -3,7 +3,7 @@ version: '3.4'
 
 services:
   image:
-    image: docker.io/metno/pycsw:${VERSION:-latest}
+    image: docker.io/metno/pycsw:${VERSION:-dev}
     build:
       context: .
     ports:
