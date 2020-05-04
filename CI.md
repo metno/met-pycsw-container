@@ -5,17 +5,15 @@
 * Update `.github/workflows/docker.yml` with tags.
     * Add new tag.
     * Set environment `LATEST_TAG`.
-* Commit to repository.
+* Commit all changes to repository.
 * Tag repository with same tag as `LATEST_TAG`.
 * `git push`
 * `git push --tags`
 
-## About
+## About CI
 
-### GitHub Actions
-
-* Testing on pull requests.
-* Build and publish on push and tags.
+* Runs testing on pull requests.
+* Build and publish on merge, push to master and tags.
 * Build and publish on schedule.
 
 ### Docker Hub
@@ -26,5 +24,5 @@
 
 ### Github
 
-* Repository can have secrets which is not forked.
+* Repository have secrets which is not forked.
     * https://github.com/metno/pycsw-container/settings/secrets
