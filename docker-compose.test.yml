@@ -6,5 +6,5 @@ services:
     build:
       context: .
     # Add your tests here, to be run each pull request
-    #command: run_tests.sh
+    command: echo run_tests.sh
 
