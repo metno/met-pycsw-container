@@ -9,7 +9,7 @@ This is MET norways base container for pycsw, an OGC CSW server implementation w
 
 ## Tags
 
-* `2.4.2-alpine`, `alpine`, `latest`
+* `2.4.2`, `2.4`, `2`, `latest`
 
 ## Exposes
 

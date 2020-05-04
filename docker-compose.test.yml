@@ -5,5 +5,5 @@ services:
   sut:
     build:
       context: .
-    #command: run_tests.sh
+    command: echo Run integration tests run_tests.sh
 

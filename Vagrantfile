@@ -20,6 +20,8 @@ Vagrant.configure("2") do |config|
 
   config.vm.provision "10-docker-compose", type: "shell", "run": "always", inline: <<-SHELL
     cd /vagrant
-    docker-compose build
+    docker-compose -f docker-compose.test.yml build \
+    && docker-compose -f docker-compose.test.yml run sut \
+    && docker-compose build
   SHELL
 end
