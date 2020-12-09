@@ -40,10 +40,10 @@
 # xmltodict - pythonic way to work on xml
 
 FROM alpine:3.11
-LABEL maintainer="massimods@met.no,aheimsbakk@met.no"
+LABEL maintainer="massimods@met.no,aheimsbakk@met.no,mortenwh@met.no"
 
 ENV PYCSW_CONFIG=/etc/pycsw/pycsw.cfg
-ENV PYCSW_VERSION=2.4.2
+ENV PYCSW_VERSION=2.6.0
 
 EXPOSE 8000
 
